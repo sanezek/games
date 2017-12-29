@@ -1,3 +1,5 @@
+import threading
+import time
 import tkinter
 from random import randint
 
@@ -5,10 +7,9 @@ from random import randint
 root=tkinter.Tk()
 root.title('snake')
 root.geometry('250x250+400+400')
-la=tkinter.Label(root,font='Courier 10')
-la.pack()
 get_new=0
-                 
+
+la=tkinter.Label(root,font='Courier 10')
 
 def print_pole():
     global pole,la
@@ -24,7 +25,6 @@ def print_pole():
     la['text']=d
 
 
-
 def apple():
     global zmeyka,pole
     appx,appy=randint(1,13),randint(1,13)
@@ -35,19 +35,51 @@ def apple():
         print('new apple at {0} {1}'.format(appx,appy))
         
     
+def qite(e):
+    global root
+    root.destroy()
 
-        
+
+def gogo(e):
+    global zmeyka,st,pole,but,br
+    st=2
+    pole=[]
+    br.destroy()
+    but.destroy()
+    for i in range(15):
+        a=[]
+        for j in range(15):
+            a.append(' ')
+        pole.append(a)
+        del a
+    for i in range(15):
+        if i==0 or i==14:
+            for j in range(15):
+                pole[i][j]='+'
+        else:
+            pole[i][0],pole[i][14]='+','+'
+    zmeyka=[[5,5],[5,4],[5,3],[4,3],[4,4],[4,5]]
+    apple()
+    go()
+
+
+
 
 def loose():
-    global la
-    la['text']='YOU LOSE'
-    root.bind('<Key>',lambda x:x)
+    global la,root,t
     but=tkinter.Button(root,text='CLOSE',font='Courier 20',background='red')
+    but.bind('<Button-1>',qite)
+    br=tkinter.Button(root,text='restart',font='Courier 20',background='green')
+    br.bind('<Button>',gogo)
+    la['text']='YOU LOSE'
+    t.cancel()
+    br.pack()
     but.pack()
-    but.bind('<Button>',root.destroy())
+
 
 def go():
-    global pole,zmeyka,st,get_new
+    global pole,zmeyka,st,get_new,t
+    t=threading.Timer(0.5,go)   
     end=zmeyka[len(zmeyka)-1]
     if st==0:
         a=[zmeyka[0][0],zmeyka[0][1]-1]
@@ -77,46 +109,62 @@ def go():
             zmeyka.append(end)
             apple()
             get_new=0
-
+    t.start()
 
 def go0(e):
     global st
     st=0
-    go()
 
 def go1(e):
     global st
     st=1
-    go()
 
 def go2(e):
     global st
     st=2
-    go()
 
 def go3(e):
     global st
     st=3
+
+
+def game():
+    print('game started twise')
+    i=0
+    ts=time.time()
+    while 1:
+        if time.time()-ts>=2:
+            go()
+            game()
+
+def start(e):
+    global root,la,but_start,but_qite,t
+    print('game started')
+    but_start.destroy()
+    but_qite.destroy()
+    la.pack()
+    time.sleep(2)
+#    game()
+    root.title('u in game')
     go()
 
-def god(e):
-    a=e.keycode
-    if a==87 or a==38:
-        go0(e)
-    if a==68 or a==39 :
-        go1(e)
-    if a==83 or a==40 :
-        go2(e)
-    if a==65 or a==37 :
-        go3(e)
 
 
 
-    
-zmeyka=[[5,5],[5,4],[5,3],[4,3],[4,4],[4,5]]
-root.bind('<Key>',god)
+t=threading.Timer(0.5,go)   
+but_start=tkinter.Button(root,text='Start game')
+but_start.bind('<Button>',start)
+but_start.pack()
 
+but_qite=tkinter.Button(root,text='Qite')
+but_qite.bind('<Button>',qite)
+but_qite.pack()
 
+root.bind('<w>',go0)
+root.bind('<d>',go1)
+root.bind('<s>',go2)
+root.bind('<a>',go3)
+       
 
 st=2
 pole=[]
@@ -132,8 +180,7 @@ for i in range(15):
             pole[i][j]='+'
     else:
         pole[i][0],pole[i][14]='+','+'
+zmeyka=[[5,5],[5,4],[5,3],[4,3],[4,4],[4,5]]
 
-
-        
 apple()
-go()
+root.mainloop()

@@ -164,6 +164,11 @@ root.bind('<w>',go0)
 root.bind('<d>',go1)
 root.bind('<s>',go2)
 root.bind('<a>',go3)
+root.bind('<ц>',go0)
+root.bind('<в>',go1)
+root.bind('<ы>',go2)
+root.bind('<ф>',go3)
+
        
 
 st=2

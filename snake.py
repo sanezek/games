@@ -1,7 +1,24 @@
+import sys
 import threading
 import time
 import tkinter
 from random import randint
+
+
+
+system=sys.platform
+if system.find('win')!=0:
+    up=[87,38]
+    r=[39,68]
+    d=[83,40]
+    l=[65,37]
+if system.find('linux')!=0:
+    up=[25,111]
+    r=[40,114]
+    d=[39,116]
+    l=[38,113]
+
+
 
 
 root=tkinter.Tk()
@@ -148,6 +165,20 @@ def start(e):
     root.title('u in game')
     go()
 
+def god(e):
+    a=e.keycode
+    if a in up:
+        go0(e)
+    if a in r:
+        go1(e)
+    if a in d:
+        go2(e)
+    if a in l:            
+
+
+
+        go3(e)
+
 
 
 
@@ -160,10 +191,7 @@ but_qite=tkinter.Button(root,text='Qite')
 but_qite.bind('<Button>',qite)
 but_qite.pack()
 
-root.bind('<w>',go0)
-root.bind('<d>',go1)
-root.bind('<s>',go2)
-root.bind('<a>',go3)
+root.bind('<Key>',god)
 #root.bind('<ц>',go0)
 #root.bind('<в>',go1)
 #root.bind('<ы>',go2)

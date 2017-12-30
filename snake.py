@@ -66,7 +66,7 @@ def gogo(e):
 
 
 def loose():
-    global la,root,t
+    global la,root,t,br,but
     but=tkinter.Button(root,text='CLOSE',font='Courier 20',background='red')
     but.bind('<Button-1>',qite)
     br=tkinter.Button(root,text='restart',font='Courier 20',background='green')
@@ -164,13 +164,16 @@ root.bind('<w>',go0)
 root.bind('<d>',go1)
 root.bind('<s>',go2)
 root.bind('<a>',go3)
-root.bind('<ц>',go0)
-root.bind('<в>',go1)
-root.bind('<ы>',go2)
-root.bind('<ф>',go3)
+#root.bind('<ц>',go0)
+#root.bind('<в>',go1)
+#root.bind('<ы>',go2)
+#root.bind('<ф>',go3)
 
        
-
+but=tkinter.Button(root,text='CLOSE',font='Courier 20',background='red')
+but.bind('<Button-1>',qite)
+br=tkinter.Button(root,text='restart',font='Courier 20',background='green')
+br.bind('<Button>',gogo)
 st=2
 pole=[]
 for i in range(15):

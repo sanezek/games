@@ -7,19 +7,16 @@ from random import randint
 
 
 system=sys.platform
-if system.find('win')!=0:
+if system.find('win')=0:
     up=[87,38]
     r=[39,68]
     d=[83,40]
     l=[65,37]
-if system.find('linux')!=0:
+if system.find('linux')=0:
     up=[25,111]
     r=[40,114]
     d=[39,116]
     l=[38,113]
-
-
-
 
 root=tkinter.Tk()
 root.title('snake')

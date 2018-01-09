@@ -216,4 +216,7 @@ for i in range(15):
 zmeyka=[[5,5],[5,4],[5,3],[4,3],[4,4],[4,5]]
 
 apple()
-root.mainloop()
+try:
+    root.mainloop()
+except:
+    pass

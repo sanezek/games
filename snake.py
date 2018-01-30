@@ -80,19 +80,19 @@ def gogo(e):
 
 
 def loose():
-    global la,root,t,br,but
+    global la,root,t,br,but,score
     but=tkinter.Button(root,text='CLOSE',font='Courier 20',background='red')
     but.bind('<Button-1>',qite)
     br=tkinter.Button(root,text='restart',font='Courier 20',background='green')
     br.bind('<Button>',gogo)
-    la['text']='YOU LOSE'
+    la['text']='YOU LOSE\nyour score: {0}'.format(score)
     t.cancel()
     br.pack()
     but.pack()
 
 
 def go():
-    global pole,zmeyka,st,get_new,t
+    global pole,zmeyka,st,get_new,t,score
     t=threading.Timer(0.5,go)   
     end=zmeyka[len(zmeyka)-1]
     if st==0:
@@ -122,6 +122,7 @@ def go():
         if get_new==1:
             zmeyka.append(end)
             apple()
+            score+=1
             get_new=0
     t.start()
 
@@ -214,6 +215,8 @@ for i in range(15):
     else:
         pole[i][0],pole[i][14]='+','+'
 zmeyka=[[5,5],[5,4],[5,3],[4,3],[4,4],[4,5]]
+score=0
+
 
 apple()
 try:
